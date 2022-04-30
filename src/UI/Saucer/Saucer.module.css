@@ -16,13 +16,115 @@
     background: var(--saucer-body-background);
 }
 
+.body::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    border-top: 2px solid var(--saucer-accent-background);
+    border-bottom: 2px solid var(--saucer-accent-background);;
+    transform: rotate(-55deg);
+    position: relative;
+    top: 50px;
+    left: -15px;
+}
+
+.body::after {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    border-top: 2px solid var(--saucer-accent-background);;
+    border-bottom: 2px solid var(--saucer-accent-background);;
+    transform: rotate(55deg);
+    position: relative;
+    bottom: -50px;
+    right: -15px;
+}
+
 .head {
     display: inline-block;
     width: 70px;
     height: 20px;
     border-top-left-radius: var(--saucer-head-radius);
     border-top-right-radius: var(--saucer-head-radius);
-    background: var(--saucer-head-background);
+    background: var(--saucer-accent-background);
     position: relative;
-    top: 5px;
+    top: 3px;
 }
+
+.head::before {
+    content: '';
+    display: inline-block;
+    border-top: 2px solid var(--saucer-accent-background);
+    border-bottom: 1px solid var(--saucer-accent-background);
+    width: 30px;
+    transform: rotate(45deg);
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+.head::after {
+    content: '';
+    display: inline-block;
+    border-top: 2px solid var(--saucer-accent-background);
+    border-bottom: 1px solid var(--saucer-accent-background);
+    transform: rotate(-45deg);
+    top: -5px;
+    width: 30px;
+    position: relative;
+    right: -5px;
+}
+
+.windows {
+    position: relative;
+    top: -45%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.window {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: var(--round-border);
+    align-content: center;
+    background: var(--saucer-window-background);
+}
+
+.window:nth-child(odd) {
+    animation: odd_flash 0.5s infinite alternate;
+}
+
+.window:nth-child(even) {
+    animation: even_flash 0.5s infinite alternate;
+}
+
+@keyframes odd_flash {
+    from {
+        background-color: mediumvioletred;
+        width: 7px;
+        height: 7px;
+    }
+    to {
+        background-color: red;
+        width: 12px;
+        height: 12px;
+    }
+}
+
+@keyframes even_flash {
+    from {
+        background-color: red;
+        width: 12px;
+        height: 12px;
+    }
+    to {
+        background-color: mediumvioletred;
+        width: 7px;
+        height: 7px;
+    }
+}
+
+
