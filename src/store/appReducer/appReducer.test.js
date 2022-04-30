@@ -42,4 +42,44 @@ describe('appReducer', () => {
         });
         expect(newState.currentWinId).toEqual(2);
     });
+
+    it('should increment progress', () => {
+        const newState = appReducer(state, {
+            type: types.INCREMENT_PROGRESS,
+        });
+        expect(newState.progress).toEqual(1);
+    });
+
+    it('should decrement progress', () => {
+        const firstUpdate = appReducer(state, {
+            type: types.INCREMENT_PROGRESS,
+        });
+        const newState = appReducer(firstUpdate, {
+            type: types.DECREMENT_PROGRESS,
+        });
+        expect(newState.progress).toEqual(0);
+    });
+
+    it('should decrement progress not more that 0', () => {
+        const newState = appReducer(state, {
+            type: types.DECREMENT_PROGRESS,
+        });
+        expect(newState.progress).toEqual(0);
+    });
+
+    it('should decrement rounds', () => {
+        state.roundsLeft = 9;
+        const newState = appReducer(state, {
+            type: types.DECREMENT_ROUND,
+        });
+        expect(newState.roundsLeft).toEqual(8);
+    });
+
+    it('should decrement rounds not more that 0', () => {
+        state.roundsLeft = 0;
+        const newState = appReducer(state, {
+            type: types.DECREMENT_ROUND,
+        });
+        expect(newState.roundsLeft).toEqual(0);
+    });
 });
