@@ -1,0 +1,6 @@
+body {
+    --saucer-body-radius: 80px / 30px;
+    --saucer-head-radius: 80%;
+    --saucer-body-background: deepskyblue;
+    --saucer-head-background: yellow;
+}

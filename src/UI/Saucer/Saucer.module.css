@@ -1,0 +1,28 @@
+@import '../../css/variables.module.css';
+
+.wrapper {
+    width: 175px;
+    height: 80px;
+    background: none;
+    outline: none;
+    border: 0;
+}
+
+.body {
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    border-radius: var(--saucer-body-radius);
+    background: var(--saucer-body-background);
+}
+
+.head {
+    display: inline-block;
+    width: 70px;
+    height: 20px;
+    border-top-left-radius: var(--saucer-head-radius);
+    border-top-right-radius: var(--saucer-head-radius);
+    background: var(--saucer-head-background);
+    position: relative;
+    top: 5px;
+}
