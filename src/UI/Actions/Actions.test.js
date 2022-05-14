@@ -70,5 +70,22 @@ describe('ConnectedActions', () => {
             );
             expect(screen.queryByTestId('start-button')).not.toBeInTheDocument();
         });
+
+        it('should show nothing if round isPrepping', async () => {
+            state = {
+                app: {
+                    activeRound: true,
+                    isPrepping: true,
+                },
+            };
+            await store.dispatch({ type: 'Mocked' });
+            render(
+                <Provider store={store}>
+                    <ConnectedActions />
+                </Provider>
+            );
+            expect(screen.queryByTestId('start-button')).not.toBeInTheDocument();
+            expect(screen.queryByTestId('hint')).not.toBeInTheDocument();
+        });
     });
 });

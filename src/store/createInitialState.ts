@@ -7,6 +7,7 @@ const createInitialState = () => {
         roundsLeft: 10, // with each click decrement
         activeRound: false, // after saucer has been picked, need to click shuffle button
         // to reactivate the round
+        isPrepping: false, // for transitions
     };
 };
 

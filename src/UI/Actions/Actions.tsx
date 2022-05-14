@@ -6,15 +6,24 @@ import { setActiveRound } from 'src/store/appActions/appActions';
 
 interface IActionsProps {
     activeRound: boolean;
+    isPrepping: boolean;
     onClick: Function;
     startRound: Function;
 }
 
-const Actions: FC<IActionsProps> = ({ activeRound, onClick, startRound }): JSX.Element => {
+const Actions: FC<IActionsProps> = ({
+    activeRound,
+    isPrepping,
+    onClick,
+    startRound,
+}): JSX.Element => {
     const start = () => {
         startRound(true);
         onClick();
     };
+    if (isPrepping) {
+        return null;
+    }
     if (activeRound) {
         return <span>Guess where the alien is!</span>;
     }
@@ -27,9 +36,9 @@ const Actions: FC<IActionsProps> = ({ activeRound, onClick, startRound }): JSX.E
 
 const mapStateToProps = (state) => {
     const {
-        app: { activeRound },
+        app: { activeRound, isPrepping },
     } = state;
-    return { activeRound };
+    return { activeRound, isPrepping };
 };
 
 const mapDispatchToProps = (dispatch) => {

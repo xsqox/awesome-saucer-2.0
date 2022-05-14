@@ -84,11 +84,23 @@ describe('appReducer', () => {
     });
 
     it('should set active round', () => {
-        state.activeRound = false;
         const newState = appReducer(state, {
             type: types.SET_ACTIVE_ROUND,
             payload: true,
         });
         expect(newState.activeRound).toEqual(true);
+        expect(newState.isPrepping).toEqual(true);
+    });
+
+    it('should end prepping', () => {
+        state.isPrepping = true;
+        state.activeRound = true;
+
+        const newState = appReducer(state, {
+            type: types.END_PREPPING,
+            payload: true,
+        });
+        expect(newState.activeRound).toEqual(true);
+        expect(newState.isPrepping).toEqual(false);
     });
 });

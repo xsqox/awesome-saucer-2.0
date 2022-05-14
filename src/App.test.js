@@ -14,11 +14,6 @@ jest.mock('./utils/list.utils', () => ({
 jest.mock('./store/appActions/appActions');
 
 describe('<App>', () => {
-    let setSaucers;
-    beforeEach(() => {
-        setSaucers = jest.fn();
-    });
-
     describe('Connected App', () => {
         let mockStore;
         let state;
@@ -27,6 +22,7 @@ describe('<App>', () => {
             appActions.setSaucers.mockReturnValue({ type: 'MOCKED' });
             appActions.setCurrentWinId.mockReturnValue({ type: 'MOCKED' });
             appActions.setActiveRound.mockReturnValue({ type: 'MOCKED' });
+            appActions.endPrepping.mockReturnValue({ type: 'MOCKED' });
 
             mockStore = configureMockStore();
 
@@ -65,6 +61,17 @@ describe('<App>', () => {
             fireEvent.click(screen.getByTestId('start-button'));
             jest.runAllTimers();
             expect(appActions.setSaucers).toHaveBeenCalled();
+        });
+
+        it('should end prepping after shuffling', () => {
+            render(
+                <Provider store={store}>
+                    <ConnectedApp />
+                </Provider>
+            );
+            fireEvent.click(screen.getByTestId('start-button'));
+            jest.runAllTimers();
+            expect(appActions.endPrepping).toHaveBeenCalled();
         });
     });
 });

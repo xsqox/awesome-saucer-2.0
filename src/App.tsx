@@ -1,12 +1,13 @@
 import React, { useState, useCallback, FC } from 'react';
+import FlipMove from 'react-flip-move';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setCurrentWinId, setSaucers } from './store/appActions/appActions';
-import FlipMove from 'react-flip-move';
+import * as appActions from './store/appActions/appActions';
 import Saucer from './UI/Saucer/Saucer';
-import { shuffle } from 'src/utils/list.utils';
-import s from './App.module.css';
 import { ConnectedActions } from 'src/UI/Actions/Actions';
+import { shuffle } from 'src/utils/list.utils';
+import { asyncTimeout } from 'src/utils/time.utils';
+import s from './App.module.css';
 
 //@TODO render progress and rounds
 // clicking and update state
@@ -16,29 +17,36 @@ import { ConnectedActions } from 'src/UI/Actions/Actions';
 interface IAppProps {
     saucers: number[];
     currentWinId: number | null;
-    updateCurrentWinId: Function;
-    updateSaucers: Function;
+    setCurrentWinId: Function;
+    setSaucers: Function;
+    endPrepping: Function;
 }
 
-const App: FC<IAppProps> = ({ saucers, updateSaucers, currentWinId, updateCurrentWinId }) => {
+const App: FC<IAppProps> = ({
+    saucers,
+    setSaucers,
+    currentWinId,
+    setCurrentWinId,
+    endPrepping,
+}) => {
     const renderSaucers = useCallback(() => {
         return saucers.map((s: number) => (
             <Saucer key={s} id={s} testId={`saucer-${s}`} onClick={() => {}} />
         ));
     }, [saucers]);
 
-    const shuffleSaucers = useCallback(() => {
-        for (let i = 0; i < 50; i += 1) {
-            setTimeout(() => {
-                updateSaucers(shuffle(saucers));
-            });
+    const shuffleSaucers = useCallback(async () => {
+        for (let i = 0; i < 20; i += 1) {
+            await asyncTimeout(200);
+            setSaucers(shuffle(saucers));
         }
-    }, [saucers, updateSaucers]);
+        endPrepping();
+    }, [saucers, setSaucers, endPrepping]);
 
-    const startRound = useCallback(() => {
-        updateCurrentWinId(Math.floor(Math.random() * saucers.length));
-        shuffleSaucers();
-    }, [saucers, shuffleSaucers, updateCurrentWinId]);
+    const startRound = useCallback(async () => {
+        setCurrentWinId(Math.floor(Math.random() * saucers.length));
+        await shuffleSaucers();
+    }, [saucers, shuffleSaucers, setCurrentWinId]);
 
     return (
         <div className={s.App}>
@@ -68,8 +76,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
         {
-            updateSaucers: setSaucers,
-            updateCurrentWinId: setCurrentWinId,
+            setSaucers: appActions.setSaucers,
+            setCurrentWinId: appActions.setCurrentWinId,
+            endPrepping: appActions.endPrepping,
         },
         dispatch
     );

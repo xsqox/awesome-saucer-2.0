@@ -7,6 +7,7 @@ import {
     DECREMENT_PROGRESS,
     DECREMENT_ROUND,
     SET_ACTIVE_ROUND,
+    END_PREPPING,
 } from 'src/store/appReducer/appTypes';
 
 const INITIAL_STATE = createInitialState();
@@ -53,7 +54,21 @@ const reducer = (state = INITIAL_STATE, action) => {
         case SET_ACTIVE_ROUND: {
             return {
                 ...state,
+                isPrepping: true,
                 activeRound: action.payload,
+            };
+        }
+        case SET_ACTIVE_ROUND: {
+            return {
+                ...state,
+                isPrepping: true,
+                activeRound: action.payload,
+            };
+        }
+        case END_PREPPING: {
+            return {
+                ...state,
+                isPrepping: false,
             };
         }
     }
