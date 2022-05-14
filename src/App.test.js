@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { render, screen, fireEvent } from '@testing-library/react';
-import App, { ConnectedApp } from './App';
+import { ConnectedApp } from './App';
 import createInitialState from './store/createInitialState';
 import * as appActions from './store/appActions/appActions';
 

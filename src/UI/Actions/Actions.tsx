@@ -1,4 +1,4 @@
-import React, { FC, MouseEventHandler } from 'react';
+import React, { FC } from 'react';
 import s from './actions.module.css';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
