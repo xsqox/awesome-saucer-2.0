@@ -7,14 +7,23 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
-  gap: 50px;
+  color: var(--default-font-color);
+  gap: 100px;
 }
 
-main {
+.main {
   display: flex;
   align-items: center;
   gap: 50px;
+}
+
+.gameButton {
+  border: 1px solid mediumvioletred;
+  padding: 20px 40px;
+  border-radius: var(--default-border-radius);
+  background: transparent;
+  color: var(--default-font-color);
+  font-size: calc(10px + 1.5vmin);
 }
 
 @media (prefers-reduced-motion: no-preference) {

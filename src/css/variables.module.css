@@ -5,4 +5,6 @@ body {
     --saucer-accent-background: yellow;
     --saucer-window-background: mediumvioletred;
     --round-border: 50%;
+    --default-border-radius: 5%;
+    --default-font-color: white;
 }

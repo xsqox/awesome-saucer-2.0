@@ -1,6 +1,6 @@
 const createInitialState = () => {
     return {
-        saucers: [{ id: 1 }, { id: 2 }, { id: 3 }],
+        saucers: [1, 2, 3],
         pickedID: null,
         currentWinId: null,
         progress: 0, // how many times guessed right, to win 3
