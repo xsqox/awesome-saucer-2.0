@@ -17,15 +17,6 @@
   gap: 50px;
 }
 
-.gameButton {
-  border: 1px solid mediumvioletred;
-  padding: 20px 40px;
-  border-radius: var(--default-border-radius);
-  background: transparent;
-  color: var(--default-font-color);
-  font-size: calc(10px + 1.5vmin);
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

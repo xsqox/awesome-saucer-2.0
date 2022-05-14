@@ -1,0 +1,13 @@
+.gameButton {
+    border: 1px solid mediumvioletred;
+    padding: 20px 40px;
+    border-radius: var(--default-border-radius);
+    background: transparent;
+    color: var(--default-font-color);
+    font-size: calc(10px + 1.5vmin);
+}
+
+.gameButton:hover, .gameButton:focus, .gameButton:active {
+    box-shadow: 0 0 5px 2px mediumvioletred;
+    outline: none;
+}

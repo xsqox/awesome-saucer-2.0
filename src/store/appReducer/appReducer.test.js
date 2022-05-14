@@ -82,4 +82,13 @@ describe('appReducer', () => {
         });
         expect(newState.roundsLeft).toEqual(0);
     });
+
+    it('should set active round', () => {
+        state.activeRound = false;
+        const newState = appReducer(state, {
+            type: types.SET_ACTIVE_ROUND,
+            payload: true,
+        });
+        expect(newState.activeRound).toEqual(true);
+    });
 });

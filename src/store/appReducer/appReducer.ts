@@ -6,6 +6,7 @@ import {
     INCREMENT_PROGRESS,
     DECREMENT_PROGRESS,
     DECREMENT_ROUND,
+    SET_ACTIVE_ROUND,
 } from 'src/store/appReducer/appTypes';
 
 const INITIAL_STATE = createInitialState();
@@ -47,6 +48,12 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 roundsLeft: state.roundsLeft ? state.roundsLeft - 1 : 0,
+            };
+        }
+        case SET_ACTIVE_ROUND: {
+            return {
+                ...state,
+                activeRound: action.payload,
             };
         }
     }
