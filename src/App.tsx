@@ -51,15 +51,15 @@ const App: FC<IAppProps> = ({
     return (
         <div className={s.App}>
             <header>
-                <p>Pick the right saucer, win the game!</p>
+                <Saucer key="main" testId="mother-saucer" scale={2.5} bodyColor="#40E0D0" />
             </header>
             <main>
                 {/* @ts-ignore */}
                 <FlipMove duration={250} easing="ease-out" className={s.main}>
                     {renderSaucers()}
                 </FlipMove>
+                <ConnectedActions onClick={startRound} />
             </main>
-            <ConnectedActions onClick={startRound} />
         </div>
     );
 };
