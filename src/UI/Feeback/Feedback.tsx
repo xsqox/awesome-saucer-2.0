@@ -65,22 +65,24 @@ interface IFeedbackProps {
 }
 
 const getMessage = (isWin) => {
+    if (isWin === undefined) {
+        return '';
+    }
     if (isWin) {
         return winMessages[Math.floor(Math.random() * winMessages.length)];
-    } else {
-        return lostMessages[Math.floor(Math.random() * lostMessages.length)];
     }
-}
+    return lostMessages[Math.floor(Math.random() * lostMessages.length)];
+};
 
 const Feedback: FC<IFeedbackProps> = ({ isWin }): JSX.Element => {
     const [message, setMessage] = useState('');
     const testId = isWin ? 'win-message' : 'lost-message';
 
     useEffect(() => {
-       setMessage(getMessage(isWin));
+        setMessage(getMessage(isWin));
     }, [isWin]);
 
-    return <div data-testid={testId}>{message}</div>;
+    return <>{message && <div data-testid={testId}>{message}</div>}</>;
 };
 
 const mapStateToProps = (state) => {

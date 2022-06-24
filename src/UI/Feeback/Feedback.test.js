@@ -25,7 +25,7 @@ describe('ConnectedFeedback component', () => {
         store = mockStore(() => ({ ...state }));
     });
 
-    it('should render win message if currentWinId and userPickId match', () => {
+    it('should render win message if currentWinId and pickedID match', () => {
         render(
             <Provider store={store}>
                 <ConnectedFeedback onClick={onClick} />
@@ -34,7 +34,7 @@ describe('ConnectedFeedback component', () => {
         expect(screen.getByTestId('win-message')).toBeInTheDocument();
     });
 
-    it('should render lost message if currentWinId and userPickId do not match', () => {
+    it('should render lost message if currentWinId and pickedID do not match', () => {
         appSelectors.isGuessedRight.mockReturnValue(false);
         render(
             <Provider store={store}>
@@ -43,4 +43,15 @@ describe('ConnectedFeedback component', () => {
         );
         expect(screen.getByTestId('lost-message')).toBeInTheDocument();
     });
+
+    it('should render nothing if currentWinId or pickedId are not integers', () => {
+        appSelectors.isGuessedRight.mockReturnValue(undefined);
+        render(
+            <Provider store={store}>
+                <ConnectedFeedback onClick={onClick} />
+            </Provider>
+        );
+        expect(screen.queryByTestId('lost-message')).not.toBeInTheDocument();
+        expect(screen.queryByTestId('win-message')).not.toBeInTheDocument();
+    })
 });

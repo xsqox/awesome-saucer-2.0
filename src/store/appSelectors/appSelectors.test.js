@@ -12,7 +12,7 @@ describe('isGuessedRight selector', () => {
         ).toBeTruthy();
     });
 
-    it('should return true if currentWinId does not match userPickId', () => {
+    it('should return false if currentWinId does not match userPickId', () => {
         expect(
             isGuessedRight({
                 app: {
@@ -21,5 +21,27 @@ describe('isGuessedRight selector', () => {
                 },
             })
         ).toBeFalsy();
+    });
+
+    it('should return undefined if both ids are not integers', () => {
+        expect(
+            isGuessedRight({
+                app: {
+                    currentWinId: null,
+                    pickedID: null,
+                },
+            })
+        ).toBe(undefined);
+    });
+
+    it('should return undefined if any id is not integer', () => {
+        expect(
+            isGuessedRight({
+                app: {
+                    currentWinId: 1,
+                    pickedID: null,
+                },
+            })
+        ).toBe(undefined);
     });
 });

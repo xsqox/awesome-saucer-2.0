@@ -8,7 +8,7 @@ import { ConnectedActions } from 'src/UI/Actions/Actions';
 import { shuffle } from 'src/utils/list.utils';
 import { asyncTimeout } from 'src/utils/time.utils';
 import s from './App.module.css';
-import {ConnectedFeedback} from "src/UI/Feeback/Feedback";
+import { ConnectedFeedback } from 'src/UI/Feeback/Feedback';
 
 //@TODO render progress and rounds
 // clicking and update state
@@ -20,6 +20,7 @@ interface IAppProps {
     setCurrentWinId: Function;
     setUserPickId: Function;
     setSaucers: Function;
+    setRoundActive: Function;
     endPrepping: Function;
 }
 
@@ -28,11 +29,22 @@ const App: FC<IAppProps> = ({
     setSaucers,
     setCurrentWinId,
     setUserPickId,
+    setRoundActive,
     endPrepping,
 }) => {
+    const pickRandomSaucer = () => Math.floor(Math.random() * saucers.length);
+
     const onSaucerClick = (id) => {
         setUserPickId(id);
-    }
+        setRoundActive(false);
+        setTimeout(async () => {
+            setCurrentWinId(null);
+            setUserPickId(null);
+            setRoundActive(true);
+            await shuffleSaucers();
+            setCurrentWinId(pickRandomSaucer());
+        }, 3000);
+    };
 
     const renderSaucers = useCallback(() => {
         return saucers.map((s: number) => (
@@ -49,7 +61,7 @@ const App: FC<IAppProps> = ({
     }, [saucers, setSaucers, endPrepping]);
 
     const startRound = useCallback(async () => {
-        setCurrentWinId(Math.floor(Math.random() * saucers.length));
+        setCurrentWinId(pickRandomSaucer());
         await shuffleSaucers();
     }, [saucers, shuffleSaucers, setCurrentWinId]);
 
@@ -86,6 +98,7 @@ const mapDispatchToProps = (dispatch) => {
             setCurrentWinId: appActions.setCurrentWinId,
             setUserPickId: appActions.setUserPickId,
             endPrepping: appActions.endPrepping,
+            setRoundActive: appActions.setActiveRound,
         },
         dispatch
     );

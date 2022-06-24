@@ -5,6 +5,7 @@ import { ConnectedApp } from './App';
 import createInitialState from './store/createInitialState';
 import * as appActions from './store/appActions/appActions';
 import * as timeUtils from 'src/utils/time.utils';
+import { setUserPickId } from './store/appActions/appActions';
 
 jest.useFakeTimers();
 
@@ -91,27 +92,50 @@ describe('<App>', () => {
         });
 
         describe('when the game has started', () => {
-            describe('when user picks a saucer', () => {
-                beforeEach(() => {
-                    appActions.setUserPickId.mockReturnValue({ type: 'MOCKED' });
-                });
-                it('should show win message if selected id matches current win id', () => {
-                    render(
-                        <Provider store={store}>
-                            <ConnectedApp />
-                        </Provider>
-                    );
-                    fireEvent.click(screen.getByTestId('start-button'));
-                    const callback = async () => {
-                        for (let i = 0; i < 20; i += 1) {
-                            await timeUtils.asyncTimeout();
-                        }
-                    };
-                    callback();
-                    fireEvent.click(screen.getByTestId('saucer-2'));
+            const setupRound = () => {
+                render(
+                    <Provider store={store}>
+                        <ConnectedApp />
+                    </Provider>
+                );
+                fireEvent.click(screen.getByTestId('start-button'));
+                const callback = async () => {
+                    for (let i = 0; i < 20; i += 1) {
+                        await timeUtils.asyncTimeout();
+                    }
+                };
+                callback();
+                fireEvent.click(screen.getByTestId('saucer-2'));
+            };
 
-                    expect(screen.getByTestId('win-message')).toBeInTheDocument();
-                });
+            beforeEach(() => {
+                appActions.setUserPickId.mockReturnValue({ type: 'MOCKED' });
+            });
+
+            afterEach(() => {
+                appActions.setUserPickId.mockClear();
+            });
+
+            it('should dispatch `setUserPickId` when user picks a saucer', () => {
+                setupRound();
+                expect(appActions.setUserPickId).toHaveBeenCalled();
+            });
+
+            it('should dispatch `setRoundActive(false)` after user picks a saucer', () => {
+                setupRound();
+                expect(appActions.setActiveRound).toHaveBeenCalledWith(false);
+            });
+
+            it('should dispatch `setCurrentWinId(null)` after user picks a saucer and timeout expires', () => {
+                setupRound();
+                jest.runAllTimers();
+                expect(appActions.setCurrentWinId).toHaveBeenCalledWith(null);
+            });
+
+            it('should dispatch `setUserPickId(null)` after user picks a saucer and timeout expires', () => {
+                setupRound();
+                jest.runAllTimers();
+                expect(appActions.setUserPickId).toHaveBeenCalledWith(null);
             });
         });
     });
