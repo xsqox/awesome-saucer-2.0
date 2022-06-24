@@ -68,15 +68,17 @@ const App: FC<IAppProps> = ({
     return (
         <div className={s.App}>
             <header>
-                <Saucer key="main" testId="mother-saucer" scale={2.5} bodyColor="#40E0D0" />
+                <Saucer key="main" testId="mother-saucer" scale={2} bodyColor="#40E0D0" />
             </header>
             <main>
                 {/* @ts-ignore */}
                 <FlipMove duration={250} easing="ease-out" className={s.main}>
                     {renderSaucers()}
                 </FlipMove>
-                <ConnectedActions onClick={startRound} />
-                <ConnectedFeedback />
+                <div className={s.actions}>
+                    <ConnectedActions onClick={startRound} />
+                    <ConnectedFeedback />
+                </div>
             </main>
         </div>
     );

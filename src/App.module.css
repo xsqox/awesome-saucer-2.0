@@ -24,6 +24,10 @@ main {
   gap: 100px;
 }
 
+.actions {
+  height: 100px;
+}
+
 .main {
   display: flex;
   align-items: center;
@@ -37,7 +41,7 @@ main {
 }
 
 @media only screen and (max-width: 768px) {
-  main {
+  .main {
     flex-direction: column;
     row-gap: 60px;
   }
