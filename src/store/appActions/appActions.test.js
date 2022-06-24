@@ -1,7 +1,7 @@
 import configureStore from 'redux-mock-store';
 
-import { setSaucers, setCurrentWinId, setActiveRound } from './appActions';
-import { SET_SAUCERS, SET_CURRENT_WIN_ID, SET_ACTIVE_ROUND } from '../appReducer/appTypes';
+import {setSaucers, setCurrentWinId, setActiveRound, setUserPickId} from './appActions';
+import {SET_SAUCERS, SET_CURRENT_WIN_ID, SET_ACTIVE_ROUND, SET_USER_PICK_ID} from '../appReducer/appTypes';
 
 const mockStore = configureStore();
 const store = mockStore();
@@ -32,6 +32,18 @@ describe('App actions', () => {
         ];
 
         store.dispatch(setCurrentWinId(11));
+        expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should dispatch "SET_USER_PICK_ID" type and payload', () => {
+        const expectedActions = [
+            {
+                type: SET_USER_PICK_ID,
+                payload: 11,
+            },
+        ];
+
+        store.dispatch(setUserPickId(11));
         expect(store.getActions()).toEqual(expectedActions);
     });
 

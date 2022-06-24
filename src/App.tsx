@@ -1,4 +1,4 @@
-import React, { useState, useCallback, FC } from 'react';
+import React, { useCallback, FC } from 'react';
 import FlipMove from 'react-flip-move';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -8,6 +8,7 @@ import { ConnectedActions } from 'src/UI/Actions/Actions';
 import { shuffle } from 'src/utils/list.utils';
 import { asyncTimeout } from 'src/utils/time.utils';
 import s from './App.module.css';
+import {ConnectedFeedback} from "src/UI/Feeback/Feedback";
 
 //@TODO render progress and rounds
 // clicking and update state
@@ -16,8 +17,8 @@ import s from './App.module.css';
 
 interface IAppProps {
     saucers: number[];
-    currentWinId: number | null;
     setCurrentWinId: Function;
+    setUserPickId: Function;
     setSaucers: Function;
     endPrepping: Function;
 }
@@ -25,13 +26,17 @@ interface IAppProps {
 const App: FC<IAppProps> = ({
     saucers,
     setSaucers,
-    currentWinId,
     setCurrentWinId,
+    setUserPickId,
     endPrepping,
 }) => {
+    const onSaucerClick = (id) => {
+        setUserPickId(id);
+    }
+
     const renderSaucers = useCallback(() => {
         return saucers.map((s: number) => (
-            <Saucer key={s} id={s} testId={`saucer-${s}`} onClick={() => {}} />
+            <Saucer key={s} id={s} testId={`saucer-${s}`} onClick={onSaucerClick} />
         ));
     }, [saucers]);
 
@@ -59,6 +64,7 @@ const App: FC<IAppProps> = ({
                     {renderSaucers()}
                 </FlipMove>
                 <ConnectedActions onClick={startRound} />
+                <ConnectedFeedback />
             </main>
         </div>
     );
@@ -78,6 +84,7 @@ const mapDispatchToProps = (dispatch) => {
         {
             setSaucers: appActions.setSaucers,
             setCurrentWinId: appActions.setCurrentWinId,
+            setUserPickId: appActions.setUserPickId,
             endPrepping: appActions.endPrepping,
         },
         dispatch

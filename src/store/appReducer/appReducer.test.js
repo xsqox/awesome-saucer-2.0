@@ -35,12 +35,20 @@ describe('appReducer', () => {
         expect(newState.pickedId).toEqual(3);
     });
 
-    it('should update currentWinId', () => {
+    it('should sent currentWinId', () => {
         const newState = appReducer(state, {
             type: types.SET_CURRENT_WIN_ID,
             payload: 2,
         });
         expect(newState.currentWinId).toEqual(2);
+    });
+
+    it('should set userPickId', () => {
+        const newState = appReducer(state, {
+            type: types.SET_USER_PICK_ID,
+            payload: 2,
+        });
+        expect(newState.pickedID).toEqual(2);
     });
 
     it('should increment progress', () => {

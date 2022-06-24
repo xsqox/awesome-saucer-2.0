@@ -2,6 +2,7 @@ import createInitialState from 'src/store/createInitialState';
 import {
     SET_SAUCERS,
     SET_CURRENT_WIN_ID,
+    SET_USER_PICK_ID,
     SET_PICKED_ID,
     INCREMENT_PROGRESS,
     DECREMENT_PROGRESS,
@@ -70,6 +71,12 @@ const reducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isPrepping: false,
             };
+        }
+        case SET_USER_PICK_ID: {
+            return {
+                ...state,
+                pickedID: action.payload
+            }
         }
     }
     return state;

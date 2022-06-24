@@ -1,6 +1,7 @@
 import {
     SET_SAUCERS,
     SET_CURRENT_WIN_ID,
+    SET_USER_PICK_ID,
     SET_ACTIVE_ROUND,
     END_PREPPING,
 } from '../appReducer/appTypes';
@@ -12,6 +13,11 @@ export const setSaucers = (data) => ({
 
 export const setCurrentWinId = (id) => ({
     type: SET_CURRENT_WIN_ID,
+    payload: id,
+});
+
+export const setUserPickId = (id) => ({
+    type: SET_USER_PICK_ID,
     payload: id,
 });
 

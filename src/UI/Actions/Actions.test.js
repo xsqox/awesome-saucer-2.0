@@ -1,5 +1,4 @@
 import configureMockStore from 'redux-mock-store';
-import { act } from 'react-dom/test-utils';
 
 import { Provider } from 'react-redux';
 import { render, screen, fireEvent } from '@testing-library/react';
